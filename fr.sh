@@ -25,11 +25,6 @@ cd /opt/fruitnanny
 openssl req -x509 -sha256 -nodes -days 2650 -newkey rsa:2048 -keyout configuration/ssl/fruitnanny.key -out configuration/ssl/fruitnanny.pem -subj "/C=AU/ST=NSW/L=Sydney/O=MongoDB/OU=root/CN=`hostname -f`"
 
 
-# Generate apache passwords
-cd /opt/fruitnanny
-echo -n 'fr:' >> ./configuration/nginx/.htpasswd
-openssl passwd -1 "123" -apr1 >>  ./configuration/nginx/.htpasswd
-
 # Install NodeJS
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install -y nodejs
@@ -72,6 +67,7 @@ cp /opt/fruitnanny/configuration/janus/janus.cfg /usr/local/etc/janus
 cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.cfg /usr/local/etc/janus
 cp /opt/fruitnanny/configuration/janus/janus.transport.http.cfg /usr/local/etc/janus
 
+
 # Nginx
 cd ~
 sudo apt -y install nginx
@@ -80,3 +76,20 @@ sudo cp /opt/fruitnanny/configuration/nginx/fruitnanny_http /etc/nginx/sites-ava
 sudo cp /opt/fruitnanny/configuration/nginx/fruitnanny_https /etc/nginx/sites-available/fruitnanny_https
 sudo ln -s /etc/nginx/sites-available/fruitnanny_http /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/fruitnanny_https /etc/nginx/sites-enabled/
+sudo sh -c "echo -n 'fr:' >> /etc/nginx/.htpasswd"
+sudo sh -c "openssl passwd -1 "123" -apr1 >> /etc/nginx/.htpasswd"
+
+
+# Autostart Audio, Video, NodeJS and Janus
+sudo cp /opt/fruitnanny/configuration/systemd/audio.service /etc/systemd/system/
+sudo cp /opt/fruitnanny/configuration/systemd/video.service /etc/systemd/system/
+sudo cp /opt/fruitnanny/configuration/systemd/janus.service /etc/systemd/system/
+sudo cp /opt/fruitnanny/configuration/systemd/fruitnanny.service /etc/systemd/system/
+sudo systemctl enable audio
+sudo systemctl start audio
+sudo systemctl enable video
+sudo systemctl start video
+sudo systemctl enable janus
+sudo systemctl start janus
+sudo systemctl enable fruitnanny
+sudo systemctl start fruitnanny
