@@ -47,7 +47,7 @@ sudo make install
 
 # Janus WebRTC Gateway
 # install prerequisites
-sudo apt install -y libmicrohttpd-dev libjansson-dev libnice-dev
+sudo apt install -y libmicrohttpd-dev libjansson-dev libnice-dev libconfig-dev
 sudo apt install -y libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev
 sudo apt install -y libopus-dev libogg-dev pkg-config gengetopt libsrtp2-dev
 # get Janus sources
@@ -63,9 +63,10 @@ sudo make install
 # хрень sudo apt -y install janus janus-dev libjs-janus janus-tools
 
 # Copy these files into Janus config directory:
-cp /opt/fruitnanny/configuration/janus/janus.cfg /usr/local/etc/janus
-cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.cfg /usr/local/etc/janus
-cp /opt/fruitnanny/configuration/janus/janus.transport.http.cfg /usr/local/etc/janus
+sudo mkdir janus
+cp /opt/fruitnanny/configuration/janus/janus.jcfg /usr/local/etc/janus
+cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /usr/local/etc/janus
+cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /usr/local/etc/janus
 
 
 # Nginx
