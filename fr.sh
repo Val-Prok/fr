@@ -44,6 +44,17 @@ cd /tmp/gst-rpicamsrc
 make
 sudo make install
 
+# Docker installation
+
+# git and extra libs
+sudo apt-get -y install git curl libffi-dev python python-pip
+# docker
+cd ~
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker pi
+# docker-compose
+sudo apt-get -y install  docker-compose
 
 # Janus WebRTC Gateway
 # install prerequisites
@@ -95,14 +106,4 @@ sudo systemctl start video
 sudo systemctl enable fruitnanny
 sudo systemctl start fruitnanny
 
-# Docker installation
 
-# git and extra libs
-sudo apt-get -y install git curl libffi-dev python python-pip
-# docker
-cd ~
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-sudo usermod -aG docker pi
-# docker-compose
-sudo apt-get -y install  docker-compose
