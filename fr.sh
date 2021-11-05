@@ -47,26 +47,26 @@ sudo make install
 
 # Janus WebRTC Gateway
 # install prerequisites
-sudo apt install -y libmicrohttpd-dev libjansson-dev libnice-dev libconfig-dev
-sudo apt install -y libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev
-sudo apt install -y libopus-dev libogg-dev pkg-config gengetopt libsrtp2-dev
+# sudo apt install -y libmicrohttpd-dev libjansson-dev libnice-dev libconfig-dev
+# sudo apt install -y libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev
+# sudo apt install -y libopus-dev libogg-dev pkg-config gengetopt libsrtp2-dev
 # get Janus sources
-git clone https://github.com/meetecho/janus-gateway /tmp/janus-gateway
-cd /tmp/janus-gateway
-git checkout v0.9.0
+# git clone https://github.com/meetecho/janus-gateway /tmp/janus-gateway
+# cd /tmp/janus-gateway
+# git checkout v0.9.0
 # build binaries
-sh autogen.sh
-./configure --disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqtt
-make
-sudo make install
+# sh autogen.sh
+# ./configure --disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqtt
+# make
+# sudo make install
 
 # хрень sudo apt -y install janus janus-dev libjs-janus janus-tools
 
 # Copy these files into Janus config directory:
-sudo mkdir janus
-cp /opt/fruitnanny/configuration/janus/janus.jcfg /usr/local/etc/janus
-cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /usr/local/etc/janus
-cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /usr/local/etc/janus
+# sudo mkdir janus
+# cp /opt/fruitnanny/configuration/janus/janus.jcfg /usr/local/etc/janus
+# cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /usr/local/etc/janus
+# cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /usr/local/etc/janus
 
 
 # Nginx
@@ -84,13 +84,25 @@ sudo sh -c "openssl passwd -1 "123" -apr1 >> /etc/nginx/.htpasswd"
 # Autostart Audio, Video, NodeJS and Janus
 sudo cp /opt/fruitnanny/configuration/systemd/audio.service /etc/systemd/system/
 sudo cp /opt/fruitnanny/configuration/systemd/video.service /etc/systemd/system/
-sudo cp /opt/fruitnanny/configuration/systemd/janus.service /etc/systemd/system/
+# sudo cp /opt/fruitnanny/configuration/systemd/janus.service /etc/systemd/system/
 sudo cp /opt/fruitnanny/configuration/systemd/fruitnanny.service /etc/systemd/system/
 sudo systemctl enable audio
 sudo systemctl start audio
 sudo systemctl enable video
 sudo systemctl start video
-sudo systemctl enable janus
-sudo systemctl start janus
+# sudo systemctl enable janus
+# sudo systemctl start janus
 sudo systemctl enable fruitnanny
 sudo systemctl start fruitnanny
+
+# Docker installation
+
+# git and extra libs
+sudo apt-get -y install git curl libffi-dev python python-pip
+# docker
+cd ~
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker pi
+# docker-compose
+sudo apt-get -y install  docker-compose
