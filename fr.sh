@@ -1,11 +1,11 @@
 #!/bin/bash
 # Install tools
 sudo apt update
-sudo apt full-upgrade
-sudo apt install rpi-update
+sudo apt full-upgrade -y
+sudo apt install rpi-update -y
 sudo rpi-update -y
 sudo apt -y install git curl libffi-dev python python-pip
-sudo apt -y install vim git nano emacs libraspberrypi-dev autoconf automake libtool pkg-config alsa-base alsa-tools alsa-utils
+sudo apt -y install nano emacs libraspberrypi-dev autoconf automake libtool pkg-config alsa-base alsa-tools alsa-utils
 
 
 # enable camera
@@ -26,10 +26,17 @@ openssl req -x509 -sha256 -nodes -days 2650 -newkey rsa:2048 -keyout configurati
 
 
 # Install NodeJS
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt install -y nodejs
+# curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+# sudo apt install -y nodejs
 # проверка
-node -v
+# node -v
+
+# Install Node.js v14.x
+curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+cd /opt/fruitnanny/
+npm install
+npm run grunt
 
 
 # Audio and Video pipeline setup
@@ -47,37 +54,31 @@ sudo make install
 # Docker installation
 
 # git and extra libs
-sudo apt-get -y install git curl libffi-dev python python-pip
+sudo apt -y install git curl libffi-dev python python-pip
 # docker
 cd ~
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker pi
 # docker-compose
-sudo apt-get -y install  docker-compose
+sudo apt -y install  docker-compose
 
 # Janus WebRTC Gateway
-# install prerequisites
-# sudo apt install -y libmicrohttpd-dev libjansson-dev libnice-dev libconfig-dev
-# sudo apt install -y libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev
-# sudo apt install -y libopus-dev libogg-dev pkg-config gengetopt libsrtp2-dev
-# get Janus sources
-# git clone https://github.com/meetecho/janus-gateway /tmp/janus-gateway
-# cd /tmp/janus-gateway
-# git checkout v0.9.0
-# build binaries
-# sh autogen.sh
-# ./configure --disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqtt
-# make
-# sudo make install
+# Install janus-gateway on Ubuntu using the Snap Store
+# info https://github.com/RSATom/janus-gateway-snap
+# chek run
+# sudo systemctl status snap.janus-gateway.janus-gateway.service
+sudo apt install snapd
+sudo snap install janus-gateway
+# chek
+snap list janus-gateway
 
-# хрень sudo apt -y install janus janus-dev libjs-janus janus-tools
 
 # Copy these files into Janus config directory:
 # sudo mkdir janus
-# cp /opt/fruitnanny/configuration/janus/janus.jcfg /usr/local/etc/janus
-# cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /usr/local/etc/janus
-# cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /usr/local/etc/janus
+cp /opt/fruitnanny/configuration/janus/janus.jcfg /var/snap/janus-gateway/common/etc
+cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /var/snap/janus-gateway/common/etc
+cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /var/snap/janus-gateway/common/etc
 
 
 # Nginx
@@ -88,8 +89,9 @@ sudo cp /opt/fruitnanny/configuration/nginx/fruitnanny_http /etc/nginx/sites-ava
 sudo cp /opt/fruitnanny/configuration/nginx/fruitnanny_https /etc/nginx/sites-available/fruitnanny_https
 sudo ln -s /etc/nginx/sites-available/fruitnanny_http /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/fruitnanny_https /etc/nginx/sites-enabled/
-sudo sh -c "echo -n 'fr:' >> /etc/nginx/.htpasswd"
-sudo sh -c "openssl passwd -1 "123" -apr1 >> /etc/nginx/.htpasswd"
+# Password Nginx
+# sudo sh -c "echo -n 'fr:' >> /etc/nginx/.htpasswd"
+# sudo sh -c "openssl passwd -1 "123" -apr1 >> /etc/nginx/.htpasswd"
 
 
 # Autostart Audio, Video, NodeJS and Janus
