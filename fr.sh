@@ -1,10 +1,9 @@
 #!/bin/bash
 # Install tools
 sudo apt update
-sudo apt full-upgrade -y
-sudo apt install rpi-update -y
+sudo apt -y full-upgrade
+sudo apt -y install rpi-update
 sudo rpi-update -y
-sudo apt -y install git curl libffi-dev python python-pip
 sudo apt -y install nano emacs libraspberrypi-dev autoconf automake libtool pkg-config alsa-base alsa-tools alsa-utils
 
 
@@ -27,13 +26,13 @@ openssl req -x509 -sha256 -nodes -days 2650 -newkey rsa:2048 -keyout configurati
 
 # Install NodeJS
 # curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-# sudo apt install -y nodejs
+# sudo apt -y install nodejs
 # проверка
 # node -v
 
 # Install Node.js v14.x
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt -y install nodejs
 cd /opt/fruitnanny/
 npm install
 npm run grunt
@@ -52,7 +51,6 @@ make
 sudo make install
 
 # Docker installation
-
 # git and extra libs
 sudo apt -y install git curl libffi-dev python python-pip
 # docker
@@ -61,14 +59,14 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker pi
 # docker-compose
-sudo apt -y install  docker-compose
+sudo apt -y install docker-compose
 
 # Janus WebRTC Gateway
 # Install janus-gateway on Ubuntu using the Snap Store
 # info https://github.com/RSATom/janus-gateway-snap
 # chek run
 # sudo systemctl status snap.janus-gateway.janus-gateway.service
-sudo apt install snapd
+sudo apt -y install snapd
 sudo snap install janus-gateway
 # chek
 snap list janus-gateway
