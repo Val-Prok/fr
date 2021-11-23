@@ -3,8 +3,8 @@
 # updates
 sudo apt update
 sudo apt full-upgrade -y
-sudo apt install rpi-update -y
-sudo rpi-update
+# sudo apt install rpi-update -y
+# sudo rpi-update
 
 # enable camera
 # sudo raspi-config
