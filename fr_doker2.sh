@@ -16,3 +16,10 @@ sudo sh -c "openssl passwd -1 "123" -apr1 >> /etc/nginx/.htpasswd"
 # Run the system with notifications
 # cd /opt/fruitnanny
 # docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d
+
+# Install Node.js v14.x
+curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+cd /opt/fruitnanny/
+npm install
+npm run grunt
