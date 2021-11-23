@@ -1,9 +1,15 @@
 # Install git and run sh
 
 ```
-wget https://raw.githubusercontent.com/NeGameOnline/fr/main/fr_doker.sh
-sudo chmod +x fr_doker.sh
-./fr_doker.sh
+wget https://raw.githubusercontent.com/NeGameOnline/fr/main/fr_doker1.sh
+sudo chmod +x fr_doker1.sh
+./fr_doker1.sh
+```
+
+```
+wget https://raw.githubusercontent.com/NeGameOnline/fr/main/fr_doker1.sh
+sudo chmod +x fr_doker1.sh
+./fr_doker1.sh
 ```
 
 ```
