@@ -2,8 +2,8 @@
 # Install tools
 sudo apt update
 sudo apt -y full-upgrade
-sudo apt -y install rpi-update
-sudo rpi-update -y
+# sudo apt -y install rpi-update
+# sudo rpi-update -y
 sudo apt -y install nano emacs libraspberrypi-dev autoconf automake libtool pkg-config alsa-base alsa-tools alsa-utils
 
 
@@ -11,18 +11,15 @@ sudo apt -y install nano emacs libraspberrypi-dev autoconf automake libtool pkg-
 # sudo raspi-config
 sudo raspi-config nonint do_camera 0
 
-
 # Clone repository
 cd /opt
 sudo mkdir fruitnanny
 sudo chown pi:pi fruitnanny
 git clone https://github.com/ivadim/fruitnanny
 
-
 # Generate certificates
 cd /opt/fruitnanny
 openssl req -x509 -sha256 -nodes -days 2650 -newkey rsa:2048 -keyout configuration/ssl/fruitnanny.key -out configuration/ssl/fruitnanny.pem -subj "/C=AU/ST=NSW/L=Sydney/O=MongoDB/OU=root/CN=`hostname -f`"
-
 
 # Install NodeJS
 # curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
@@ -36,7 +33,6 @@ sudo apt -y install nodejs
 cd /opt/fruitnanny/
 npm install
 npm run grunt
-
 
 # Audio and Video pipeline setup
 sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
@@ -71,13 +67,11 @@ sudo snap install janus-gateway
 # chek
 snap list janus-gateway
 
-
 # Copy these files into Janus config directory:
 # sudo mkdir janus
-cp /opt/fruitnanny/configuration/janus/janus.jcfg /var/snap/janus-gateway/common/etc
-cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /var/snap/janus-gateway/common/etc
-cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /var/snap/janus-gateway/common/etc
-
+sudo cp /opt/fruitnanny/configuration/janus/janus.jcfg /var/snap/janus-gateway/common/etc
+sudo cp /opt/fruitnanny/configuration/janus/janus.plugin.streaming.jcfg /var/snap/janus-gateway/common/etc
+sudo cp /opt/fruitnanny/configuration/janus/janus.transport.http.jcfg /var/snap/janus-gateway/common/etc
 
 # Nginx
 cd ~
@@ -90,7 +84,6 @@ sudo ln -s /etc/nginx/sites-available/fruitnanny_https /etc/nginx/sites-enabled/
 # Password Nginx
 # sudo sh -c "echo -n 'fr:' >> /etc/nginx/.htpasswd"
 # sudo sh -c "openssl passwd -1 "123" -apr1 >> /etc/nginx/.htpasswd"
-
 
 # Autostart Audio, Video, NodeJS and Janus
 sudo cp /opt/fruitnanny/configuration/systemd/audio.service /etc/systemd/system/
