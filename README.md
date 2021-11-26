@@ -17,3 +17,10 @@ wget https://raw.githubusercontent.com/NeGameOnline/fr/main/fr.sh
 sudo chmod +x fr.sh
 ./fr.sh
 ```
+
+
+Use to check ports being listened to
+```
+sudo apt -y install lsof
+sudo lsof -i -P -n | grep janus
+```
