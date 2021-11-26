@@ -39,9 +39,9 @@ npm run grunt
 
 
 # Audio and Video pipeline setup
-sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
-sudo apt install -y gstreamer1.0-plugins-ugly gstreamer1.0-plugins-bad libgstreamer1.0-dev
-sudo apt install -y libgstreamer-plugins-base1.0-dev gstreamer1.0-alsa
+# sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+# sudo apt install -y gstreamer1.0-plugins-ugly gstreamer1.0-plugins-bad libgstreamer1.0-dev
+# sudo apt install -y libgstreamer-plugins-base1.0-dev gstreamer1.0-alsa
 # built from sources rpi camera module
 cd ~
 git clone https://github.com/thaytan/gst-rpicamsrc /tmp/gst-rpicamsrc
